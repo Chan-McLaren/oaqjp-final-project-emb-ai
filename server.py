@@ -1,10 +1,16 @@
-from flask import Flask, render_template, request, jsonify
+"""
+Watson NLP API Flask server to analyze emotion in user text
+"""
+from flask import Flask, render_template, request
 from EmotionDetection import emotion_detector
 
 app = Flask("Emotion Detector")
 
 @app.route("/emotionDetector")
 def emotion_analysis():
+    """
+    Analyze text input for emotions and return results
+    """
     text_to_analyse = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyse)
 
@@ -24,7 +30,11 @@ def emotion_analysis():
 
 @app.route("/")
 def index():
+    """
+    Serve the HTML page for the emotion detection app
+    """
     return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)
+    
